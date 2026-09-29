@@ -122,8 +122,9 @@ a {
   text-decoration: none;
 }
 
-ul[role="list"],
-ol[role="list"] {
+/* :where() = spécificité nulle, pour ne pas écraser le padding des composants
+   (ex. carrousel__piste, qui perdait ses marges latérales sur mobile). */
+:where(ul[role="list"], ol[role="list"]) {
   list-style: none;
   padding: 0;
 }
@@ -400,6 +401,7 @@ p {
 /* --- Icônes --- */
 .icone {
   display: block;
+  flex-shrink: 0;
   width: 20px;
   height: 20px;
 }
@@ -1141,6 +1143,7 @@ body.sans-scroll {
   gap: var(--space-md);
   margin: 0;
   padding-inline: clamp(1rem, 5vw, 3rem);
+  scroll-padding-inline: clamp(1rem, 5vw, 3rem);   /* le snap garde la marge */
   padding-bottom: var(--space-sm);
   overflow-x: auto;
   scroll-snap-type: x mandatory;
@@ -2150,6 +2153,14 @@ body.sans-scroll {
   white-space: nowrap;
 }
 
+.panier-vide {
+  display: grid;
+  justify-items: start;
+  gap: var(--space-md);
+  padding-block: var(--space-md);
+  color: var(--encre-douce);
+}
+
 .recap {
   position: sticky;
   top: calc(var(--header-h) + var(--space-md));
@@ -2388,6 +2399,7 @@ html.no-motion *::after {
   .carrousel__piste {
     /* Aligne la piste sur le conteneur à droite, débordement à gauche */
     padding-inline: max(clamp(1rem, 5vw, 3rem), calc((100vw - var(--container)) / 2 + clamp(1rem, 5vw, 3rem)));
+    scroll-padding-inline: max(clamp(1rem, 5vw, 3rem), calc((100vw - var(--container)) / 2 + clamp(1rem, 5vw, 3rem)));
   }
 
   .carrousel__piste > .carrousel__item {
@@ -2578,5 +2590,97 @@ html.no-motion *::after {
 
   .footer__marque {
     grid-column: 1 / -1;
+  }
+}
+
+/* ==========================================================================
+   25. Téléphones (≤ 600 px) — confort tactile et lisibilité
+   ========================================================================== */
+@media (max-width: 600px) {
+  /* Titres : un mot très long (ex. « confidentialité ») passe à la ligne
+     avec une césure plutôt que de faire déborder la page */
+  h1,
+  h2,
+  h3 {
+    overflow-wrap: break-word;
+    hyphens: auto;
+    -webkit-hyphens: auto;
+  }
+
+  /* Barre d'annonce : tient sur la largeur, sans toucher les bords */
+  .annonce {
+    padding-inline: var(--space-sm);
+  }
+
+  .annonce p {
+    font-size: 10.5px;
+    letter-spacing: 0.12em;
+  }
+
+  /* Header : zones tactiles de 44 px, icônes à taille réelle */
+  .header__burger,
+  .header__action {
+    min-width: 44px;
+    min-height: 44px;
+  }
+
+  .header__actions {
+    gap: 0;
+    margin-right: -10px;                /* aligne le pictogramme sur la gouttière */
+  }
+
+  .header__burger {
+    margin-left: -10px;
+  }
+
+  /* Pastille du panier : dans la zone tactile de 44 px, plus hors écran */
+  .pastille {
+    top: 4px;
+    right: 4px;
+  }
+
+  /* La liste de souhaits reste accessible via les cœurs des produits */
+  .header__action[href*="wishlist"] {
+    display: none;
+  }
+
+  /* Champs à 16 px minimum : évite le zoom automatique d'iOS au focus */
+  input,
+  select,
+  textarea {
+    font-size: 16px;
+  }
+
+  /* Fiche produit : quantité + cœur, puis bouton pleine largeur */
+  .fiche__achat {
+    flex-wrap: wrap;
+  }
+
+  .fiche__wish {
+    margin-left: auto;
+  }
+
+  .fiche__ajouter {
+    order: 3;
+    flex: 1 1 100%;
+    min-height: 50px;
+  }
+
+  /* Tableaux des pages légales : défilement horizontal dans leur cadre */
+  .tableau-info {
+    display: block;
+    max-width: 100%;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+  }
+
+  .tableau-info th,
+  .tableau-info td {
+    min-width: 8rem;
+  }
+
+  /* Panier : bouton de commande confortable */
+  .recap__commander {
+    min-height: 50px;
   }
 }

@@ -6,9 +6,10 @@
   <meta name="theme-color" content="#F7F2EA" />
 
   <!-- SEO -->
-  <title>Collections de bracelets en acier inoxydable — Atelier Kymia</title>
-  <meta name="description" content="Découvre les collections Atelier Kymia : Les Douceurs, Les Éclats, Les Couleurs. Bracelets en acier inoxydable doré, argenté et rose gold. Livraison offerte." />
-  <link rel="canonical" href="https://www.atelier-kymia.fr/collection.html" />
+  <title>Mon panier — Atelier Kymia</title>
+  <meta name="description" content="Ton panier Atelier Kymia : bracelets en acier inoxydable, livraison offerte." />
+  <meta name="robots" content="noindex" />
+  <link rel="canonical" href="https://www.atelier-kymia.fr/panier.html" />
 
   <!-- Favicon -->
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
@@ -17,14 +18,14 @@
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Atelier Kymia" />
   <meta property="og:locale" content="fr_FR" />
-  <meta property="og:title" content="Collections — Atelier Kymia" />
+  <meta property="og:title" content="Mon panier — Atelier Kymia" />
   <meta property="og:description" content="Les Douceurs, Les Éclats, Les Couleurs : des bracelets en acier inoxydable, un bijou pour porter sa paix." />
-  <meta property="og:url" content="https://www.atelier-kymia.fr/collection.html" />
+  <meta property="og:url" content="https://www.atelier-kymia.fr/panier.html" />
   <meta property="og:image" content="https://www.atelier-kymia.fr/assets/img/collection-douceurs.jpg" />
 
   <!-- Twitter -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Collections — Atelier Kymia" />
+  <meta name="twitter:title" content="Mon panier — Atelier Kymia" />
   <meta name="twitter:description" content="Bracelets en acier inoxydable : Les Douceurs, Les Éclats, Les Couleurs." />
   <meta name="twitter:image" content="https://www.atelier-kymia.fr/assets/img/collection-douceurs.jpg" />
 
@@ -231,45 +232,31 @@
     <section class="section section--serre">
       <div class="container entete-section">
         <p class="surtitre">Boutique</p>
-        <h1 id="titre-collection">Toutes les créations</h1>
-        <p class="entete-section__intro" id="intro-collection">
-          Des bracelets en acier inoxydable, pensés comme des cadeaux de paix.
-        </p>
+        <h1>Mon panier</h1>
       </div>
 
-      <!-- Barre de filtres -->
-      <div class="container">
-        <form class="filtres" data-filtres aria-label="Filtrer et trier les produits">
-          <fieldset class="filtres__groupe">
-            <legend class="filtres__legende">Finition</legend>
-            <div class="filtres__options">
-              <button type="button" class="puce-filtre is-actif" data-finition="tous" aria-pressed="true">Toutes</button>
-              <button type="button" class="puce-filtre" data-finition="doré" aria-pressed="false">Doré</button>
-              <button type="button" class="puce-filtre" data-finition="argenté" aria-pressed="false">Argenté</button>
-              <button type="button" class="puce-filtre" data-finition="rose gold" aria-pressed="false">Rose gold</button>
-            </div>
-          </fieldset>
-
-          <div class="filtres__groupe filtres__groupe--tri">
-            <label class="filtres__legende" for="tri">Trier par prix</label>
-            <select id="tri" class="filtres__select" data-tri>
-              <option value="defaut">Sélection</option>
-              <option value="prix-asc">Prix croissant</option>
-              <option value="prix-desc">Prix décroissant</option>
-            </select>
+      <div class="container panier-page" data-panier-page>
+        <!-- Articles (injectés par js/cart.js) -->
+        <div>
+          <ul class="panier-liste" role="list" data-panier-liste aria-label="Articles du panier"></ul>
+          <div class="panier-vide" data-panier-vide hidden>
+            <p>Ton panier est vide pour le moment.</p>
+            <a class="btn" href="/collection.html">Découvrir les créations</a>
           </div>
-        </form>
-      </div>
+        </div>
 
-      <!-- Grille de produits -->
-      <div class="container">
-        <p class="resultats-nombre" data-resultats-nombre aria-live="polite"></p>
-        <ul class="grille-produits" role="list" data-grille-produits>
-          <!-- injecté en JS -->
-        </ul>
-        <p class="grille-vide" data-grille-vide hidden>
-          Aucun bracelet ne correspond à ce filtre.
-        </p>
+        <!-- Récapitulatif -->
+        <aside class="recap" aria-labelledby="titre-recap">
+          <h2 class="recap__titre" id="titre-recap">Récapitulatif</h2>
+          <p class="recap__ligne"><span>Sous-total</span><span data-recap-soustotal>0,00 €</span></p>
+          <p class="recap__ligne"><span>Livraison</span><span data-recap-livraison>Offerte</span></p>
+          <p class="recap__ligne recap__ligne--total"><span>Total</span><span data-recap-total>0,00 €</span></p>
+          <p class="recap__note" data-recap-note aria-live="polite"></p>
+          <button type="button" class="btn btn--bloc recap__commander" data-passer-commande disabled>
+            Passer commande
+          </button>
+          <a class="recap__continuer" href="/collection.html">Continuer mes achats</a>
+        </aside>
       </div>
     </section>
   </main>

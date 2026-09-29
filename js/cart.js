@@ -6,6 +6,10 @@
 
 "use strict";
 
+/* Portée isolée : main.js déclare déjà qs, qsa et formatPrix en global ;
+   les redéclarer ici provoquait une SyntaxError qui bloquait tout le fichier. */
+(() => {
+
 /* --------------------------------------------------------------------------
    Constantes
    -------------------------------------------------------------------------- */
@@ -582,3 +586,4 @@ window.Kymia = Object.assign(window.Kymia || {}, {
   checkout,
   SEUIL_LIVRAISON_OFFERTE,
 });
+})();
