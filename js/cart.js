@@ -521,41 +521,38 @@ function initPagePanier() {
    -------------------------------------------------------------------------- */
 
 /**
- * Lance le tunnel de commande.
+ * Lance le tunnel de commande via les liens de paiement Stripe
+ * (champ `lien_paiement` de data/products.json).
  *
- * À BRANCHER PLUS TARD — paiement :
- *   - Stripe Checkout : créer une Session côté serveur
- *       POST /api/checkout → stripe.checkout.sessions.create({ line_items, mode:'payment' })
- *       puis rediriger vers session.url (window.location = url).
- *   - Shopify : rediriger vers /cart/<variant_id>:<qty> ou l'API Storefront
- *       (checkoutCreate) puis suivre checkout.webUrl.
- *   La logique panier (lignes, sous-total, livraison) est déjà prête ci-dessous.
+ * Un lien Stripe ne contient qu'un seul bijou : le panier ne peut donc
+ * contenir qu'une référence. La quantité se règle sur la page Stripe.
+ * Pour un panier multi-produits, il faudra une Checkout Session côté serveur
+ * (POST /api/checkout → stripe.checkout.sessions.create({ line_items })).
  */
-function checkout() {
+async function checkout() {
   const lignes = Panier.lire();
   if (lignes.length === 0) {
     return;
   }
 
-  // Données prêtes à envoyer à un futur back-end de paiement.
-  const commande = {
-    lignes,
-    sousTotal: Panier.sousTotal(),
-    livraison: Panier.livraison(),
-    total: Panier.total(),
-  };
+  const note = qs("[data-recap-note]");
 
-  // eslint-disable-next-line no-console
-  console.info("Checkout à brancher. Données de commande :", commande);
+  if (lignes.length > 1) {
+    const message =
+      "Pour l'instant, le paiement se fait bijou par bijou : garde une seule création dans ton panier pour commander.";
+    if (note) note.textContent = message;
+    annoncer(message);
+    return;
+  }
 
-  // Exemple (à décommenter une fois l'API prête) :
-  // fetch("/api/checkout", {
-  //   method: "POST",
-  //   headers: { "Content-Type": "application/json" },
-  //   body: JSON.stringify(commande),
-  // })
-  //   .then((r) => r.json())
-  //   .then((session) => { window.location.href = session.url; });
+  const produits = K.chargerProduits ? await K.chargerProduits() : [];
+  const produit = produits.find((p) => p.id === lignes[0].id);
+  if (!produit?.lien_paiement) {
+    if (note) note.textContent = "Le paiement est momentanément indisponible.";
+    return;
+  }
+
+  window.location.href = produit.lien_paiement;
 }
 
 /* --------------------------------------------------------------------------

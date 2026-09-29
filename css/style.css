@@ -466,14 +466,26 @@ p {
   transform: rotate(180deg);
 }
 
-/* --- Logo centré --- */
+/* --- Logo centré : monogramme « ak » + nom --- */
 .header__logo {
   justify-self: center;
+  display: flex;
+  align-items: center;
+  gap: 0.8rem;
+  line-height: 1;
+}
+
+.header__logo-mono {
+  display: block;
+  width: auto;
+  height: 38px;
+}
+
+.header__logo-texte {
   display: flex;
   flex-direction: column;
   align-items: center;
   text-align: center;
-  line-height: 1;
 }
 
 .header__logo-titre {
@@ -1493,6 +1505,13 @@ body.sans-scroll {
   display: flex;
   flex-direction: column;
   line-height: 1;
+}
+
+.footer__logo-mono {
+  align-self: flex-start;
+  width: auto;
+  height: 56px;
+  margin-bottom: var(--space-xs);
 }
 
 .footer__logo-titre {
@@ -2520,8 +2539,15 @@ html.no-motion *::after {
   }
 
   .header__logo-sous {
-    font-size: 9px;
-    letter-spacing: 0.26em;
+    display: none;
+  }
+
+  .header__logo {
+    gap: 0.5rem;
+  }
+
+  .header__logo-mono {
+    height: 26px;
   }
 
   .hero {

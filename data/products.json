@@ -14,7 +14,8 @@
         "/assets/img/produit-01-a.jpg"
       ],
       "nouveau": true,
-      "stock": 20
+      "stock": 20,
+      "lien_paiement": "https://buy.stripe.com/test_4gM8wOb7DanK7m06E3d3i00"
     },
     {
       "id": 2,
@@ -30,7 +31,8 @@
         "/assets/img/produit-02-a.jpg"
       ],
       "nouveau": false,
-      "stock": 18
+      "stock": 18,
+      "lien_paiement": "https://buy.stripe.com/test_9B6aEWcbHgM8aycfazd3i01"
     },
     {
       "id": 3,
@@ -46,7 +48,8 @@
         "/assets/img/produit-03-a.jpg"
       ],
       "nouveau": true,
-      "stock": 15
+      "stock": 15,
+      "lien_paiement": "https://buy.stripe.com/test_4gM8wO4Jf1Re7m0e6vd3i02"
     },
     {
       "id": 4,
@@ -62,7 +65,8 @@
         "/assets/img/produit-04-a.jpg"
       ],
       "nouveau": false,
-      "stock": 22
+      "stock": 22,
+      "lien_paiement": "https://buy.stripe.com/test_28E3cu6RnanK49Ofazd3i03"
     },
     {
       "id": 5,
@@ -78,7 +82,8 @@
         "/assets/img/produit-05-a.jpg"
       ],
       "nouveau": false,
-      "stock": 12
+      "stock": 12,
+      "lien_paiement": "https://buy.stripe.com/test_aFa28q5Nj9jGfSwaUjd3i04"
     },
     {
       "id": 6,
@@ -94,7 +99,8 @@
         "/assets/img/produit-06-a.jpg"
       ],
       "nouveau": true,
-      "stock": 10
+      "stock": 10,
+      "lien_paiement": "https://buy.stripe.com/test_fZubJ05Nj67ufSw2nNd3i05"
     },
     {
       "id": 7,
@@ -110,7 +116,8 @@
         "/assets/img/produit-07-a.jpg"
       ],
       "nouveau": true,
-      "stock": 16
+      "stock": 16,
+      "lien_paiement": "https://buy.stripe.com/test_00w3cufnT7bygWAd2rd3i06"
     },
     {
       "id": 8,
@@ -126,7 +133,8 @@
         "/assets/img/produit-08-a.jpg"
       ],
       "nouveau": false,
-      "stock": 14
+      "stock": 14,
+      "lien_paiement": "https://buy.stripe.com/test_cNieVcgrX67ubCgaUjd3i07"
     },
     {
       "id": 9,
@@ -142,7 +150,8 @@
         "/assets/img/produit-09-a.jpg"
       ],
       "nouveau": false,
-      "stock": 18
+      "stock": 18,
+      "lien_paiement": "https://buy.stripe.com/test_dRm3cugrX3Zm9u88Mbd3i08"
     }
   ]
 }
