@@ -15,7 +15,8 @@
       ],
       "nouveau": true,
       "stock": 20,
-      "lien_paiement": "https://buy.stripe.com/test_4gM8wOb7DanK7m06E3d3i00"
+      "lien_paiement": "https://buy.stripe.com/test_4gM8wOb7DanK7m06E3d3i00",
+      "stripe_prix": "price_1UL3h3A9i0fI69F2mLyLuksf"
     },
     {
       "id": 2,
@@ -32,7 +33,8 @@
       ],
       "nouveau": false,
       "stock": 18,
-      "lien_paiement": "https://buy.stripe.com/test_9B6aEWcbHgM8aycfazd3i01"
+      "lien_paiement": "https://buy.stripe.com/test_9B6aEWcbHgM8aycfazd3i01",
+      "stripe_prix": "price_1UL3hGA9i0fI69F2G0wr5eP5"
     },
     {
       "id": 3,
@@ -49,7 +51,8 @@
       ],
       "nouveau": true,
       "stock": 15,
-      "lien_paiement": "https://buy.stripe.com/test_4gM8wO4Jf1Re7m0e6vd3i02"
+      "lien_paiement": "https://buy.stripe.com/test_4gM8wO4Jf1Re7m0e6vd3i02",
+      "stripe_prix": "price_1UL3hGA9i0fI69F2AIos9G20"
     },
     {
       "id": 4,
@@ -66,7 +69,8 @@
       ],
       "nouveau": false,
       "stock": 22,
-      "lien_paiement": "https://buy.stripe.com/test_28E3cu6RnanK49Ofazd3i03"
+      "lien_paiement": "https://buy.stripe.com/test_28E3cu6RnanK49Ofazd3i03",
+      "stripe_prix": "price_1UL3hHA9i0fI69F2Q2v5lA3Z"
     },
     {
       "id": 5,
@@ -83,7 +87,8 @@
       ],
       "nouveau": false,
       "stock": 12,
-      "lien_paiement": "https://buy.stripe.com/test_aFa28q5Nj9jGfSwaUjd3i04"
+      "lien_paiement": "https://buy.stripe.com/test_aFa28q5Nj9jGfSwaUjd3i04",
+      "stripe_prix": "price_1UL3hHA9i0fI69F2DAV7bW3t"
     },
     {
       "id": 6,
@@ -100,7 +105,8 @@
       ],
       "nouveau": true,
       "stock": 10,
-      "lien_paiement": "https://buy.stripe.com/test_fZubJ05Nj67ufSw2nNd3i05"
+      "lien_paiement": "https://buy.stripe.com/test_fZubJ05Nj67ufSw2nNd3i05",
+      "stripe_prix": "price_1UL3hIA9i0fI69F2mqqNzER8"
     },
     {
       "id": 7,
@@ -117,7 +123,8 @@
       ],
       "nouveau": true,
       "stock": 16,
-      "lien_paiement": "https://buy.stripe.com/test_00w3cufnT7bygWAd2rd3i06"
+      "lien_paiement": "https://buy.stripe.com/test_00w3cufnT7bygWAd2rd3i06",
+      "stripe_prix": "price_1UL3hIA9i0fI69F2yWeYY6Sv"
     },
     {
       "id": 8,
@@ -134,7 +141,8 @@
       ],
       "nouveau": false,
       "stock": 14,
-      "lien_paiement": "https://buy.stripe.com/test_cNieVcgrX67ubCgaUjd3i07"
+      "lien_paiement": "https://buy.stripe.com/test_cNieVcgrX67ubCgaUjd3i07",
+      "stripe_prix": "price_1UL3hJA9i0fI69F2DN2xtV0E"
     },
     {
       "id": 9,
@@ -151,7 +159,8 @@
       ],
       "nouveau": false,
       "stock": 18,
-      "lien_paiement": "https://buy.stripe.com/test_dRm3cugrX3Zm9u88Mbd3i08"
+      "lien_paiement": "https://buy.stripe.com/test_dRm3cugrX3Zm9u88Mbd3i08",
+      "stripe_prix": "price_1UL3hJA9i0fI69F2I3P38Dgg"
     }
   ]
 }

@@ -521,13 +521,12 @@ function initPagePanier() {
    -------------------------------------------------------------------------- */
 
 /**
- * Lance le tunnel de commande via les liens de paiement Stripe
- * (champ `lien_paiement` de data/products.json).
+ * Lance le tunnel de commande.
  *
- * Un lien Stripe ne contient qu'un seul bijou : le panier ne peut donc
- * contenir qu'une référence. La quantité se règle sur la page Stripe.
- * Pour un panier multi-produits, il faudra une Checkout Session côté serveur
- * (POST /api/checkout → stripe.checkout.sessions.create({ line_items })).
+ * Le panier complet est envoyé à /api/checkout (fonction serverless), qui crée
+ * une session Stripe Checkout et renvoie son URL. Si la fonction est
+ * injoignable (site servi sans back-end), un panier d'un seul bijou bascule
+ * sur son lien de paiement Stripe (`lien_paiement` de data/products.json).
  */
 async function checkout() {
   const lignes = Panier.lire();
@@ -536,23 +535,48 @@ async function checkout() {
   }
 
   const note = qs("[data-recap-note]");
-
-  if (lignes.length > 1) {
-    const message =
-      "Pour l'instant, le paiement se fait bijou par bijou : garde une seule création dans ton panier pour commander.";
+  const bouton = qs("[data-passer-commande]");
+  const afficherErreur = (message) => {
     if (note) note.textContent = message;
     annoncer(message);
-    return;
+    if (bouton) bouton.disabled = false;
+  };
+
+  if (bouton) bouton.disabled = true;
+
+  try {
+    const reponse = await fetch("/api/checkout", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        lignes: lignes.map((l) => ({ id: l.id, quantite: l.quantite })),
+      }),
+    });
+    const data = await reponse.json().catch(() => ({}));
+
+    if (reponse.ok && data.url) {
+      window.location.href = data.url;
+      return;
+    }
+    // Erreur métier (stock, panier invalide…) : on l'affiche telle quelle.
+    if (reponse.status === 400 && data.erreur) {
+      afficherErreur(data.erreur);
+      return;
+    }
+  } catch (_) {
+    /* fonction injoignable : repli ci-dessous */
   }
 
-  const produits = K.chargerProduits ? await K.chargerProduits() : [];
-  const produit = produits.find((p) => p.id === lignes[0].id);
-  if (!produit?.lien_paiement) {
-    if (note) note.textContent = "Le paiement est momentanément indisponible.";
-    return;
+  if (lignes.length === 1) {
+    const produits = K.chargerProduits ? await K.chargerProduits() : [];
+    const produit = produits.find((p) => p.id === lignes[0].id);
+    if (produit?.lien_paiement) {
+      window.location.href = produit.lien_paiement;
+      return;
+    }
   }
 
-  window.location.href = produit.lien_paiement;
+  afficherErreur("Le paiement est momentanément indisponible. Réessaie dans quelques instants.");
 }
 
 /* --------------------------------------------------------------------------
