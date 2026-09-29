@@ -1,0 +1,148 @@
+{
+  "produits": [
+    {
+      "id": 1,
+      "slug": "charms-nuit",
+      "nom": "Charms Nuit",
+      "collection": "douceurs",
+      "prix": 279,
+      "couleur_finition": "argenté",
+      "description_courte": "Des perles noires et des cœurs brillants sur une chaîne argentée.",
+      "description_longue": "Un bracelet à charms en acier inoxydable, finition argentée. Perles noires, perles pavées et petits cœurs se suivent le long de la chaîne. Un bijou doux et contrasté, à compléter au fil du temps.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-01-a.jpg"
+      ],
+      "nouveau": true,
+      "stock": 20
+    },
+    {
+      "id": 2,
+      "slug": "charms-coeurs",
+      "nom": "Charms Cœurs",
+      "collection": "douceurs",
+      "prix": 249,
+      "couleur_finition": "argenté",
+      "description_courte": "Un double câble torsadé, des perles et des cœurs suspendus.",
+      "description_longue": "Un bracelet en acier inoxydable fait de deux câbles torsadés. Des perles argentées, une boucle ornée de pierres aux reflets rosés et des cœurs pendants. Un bijou tendre, pensé pour être offert.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-02-a.jpg"
+      ],
+      "nouveau": false,
+      "stock": 18
+    },
+    {
+      "id": 3,
+      "slug": "manchette-fleur",
+      "nom": "Manchette Fleur",
+      "collection": "douceurs",
+      "prix": 229,
+      "couleur_finition": "doré",
+      "description_courte": "Une manchette dorée ouverte, une fleur au cœur nacré.",
+      "description_longue": "Une manchette ouverte en acier inoxydable, finition dorée, aux fines lignes gravées. Une fleur aux pétales texturés se pose au centre, avec un cœur de nacre. S'ajuste facilement au poignet.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-03-a.jpg"
+      ],
+      "nouveau": true,
+      "stock": 15
+    },
+    {
+      "id": 4,
+      "slug": "maillons-eclat",
+      "nom": "Maillons Éclat",
+      "collection": "eclats",
+      "prix": 209,
+      "couleur_finition": "argenté",
+      "description_courte": "Des maillons argentés et un médaillon pavé de strass.",
+      "description_longue": "Un bracelet en acier inoxydable à grands maillons, finition argentée. Au centre, un médaillon ovale pavé de petites pierres capte la lumière. Une ligne nette, à porter tous les jours.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-04-a.jpg"
+      ],
+      "nouveau": false,
+      "stock": 22
+    },
+    {
+      "id": 5,
+      "slug": "jonc-onyx",
+      "nom": "Jonc Onyx",
+      "collection": "eclats",
+      "prix": 239,
+      "couleur_finition": "argenté",
+      "description_courte": "Un jonc argenté, un médaillon noir ciselé et une petite clé.",
+      "description_longue": "Un jonc rigide en acier inoxydable, finition argentée. Un médaillon noir entouré d'un motif ajouré, deux chaînettes fines et une petite clé pendante. Élégant, avec une touche de mystère.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-05-a.jpg"
+      ],
+      "nouveau": false,
+      "stock": 12
+    },
+    {
+      "id": 6,
+      "slug": "jonc-trefles",
+      "nom": "Jonc Trèfles",
+      "collection": "eclats",
+      "prix": 289,
+      "couleur_finition": "doré",
+      "description_courte": "Trois joncs dorés, des trèfles et une ligne de strass.",
+      "description_longue": "Un jonc en acier inoxydable à trois rangs, finition dorée. Des trèfles porte-bonheur, de petites pierres et une ligne de strass. Chaîne de réglage ornée d'une petite clé.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-06-a.jpg"
+      ],
+      "nouveau": true,
+      "stock": 10
+    },
+    {
+      "id": 7,
+      "slug": "charms-fraise",
+      "nom": "Charms Fraise",
+      "collection": "couleurs",
+      "prix": 299,
+      "couleur_finition": "doré",
+      "description_courte": "Une fraise émaillée rouge et des charms dorés.",
+      "description_longue": "Un bracelet à charms en acier inoxydable, finition dorée. Une fraise émaillée rouge, une perle de verre, une fleur, une couronne, une étoile, une colombe et une clé. Un bracelet joyeux, plein de petits symboles.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-07-a.jpg"
+      ],
+      "nouveau": true,
+      "stock": 16
+    },
+    {
+      "id": 8,
+      "slug": "jonc-cornaline",
+      "nom": "Jonc Cornaline",
+      "collection": "couleurs",
+      "prix": 265,
+      "couleur_finition": "doré",
+      "description_courte": "Un jonc doré ciselé et une pierre rouge profond.",
+      "description_longue": "Un bracelet en acier inoxydable, finition dorée, aux maillons ajourés et ciselés. Une pierre rouge profond se pose au centre d'un soleil doré. Une pièce chaleureuse, à garder longtemps.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-08-a.jpg"
+      ],
+      "nouveau": false,
+      "stock": 14
+    },
+    {
+      "id": 9,
+      "slug": "jonc-sauge",
+      "nom": "Jonc Sauge",
+      "collection": "couleurs",
+      "prix": 319,
+      "couleur_finition": "doré",
+      "description_courte": "Un jonc doré, une pierre vert tendre entourée de nacre.",
+      "description_longue": "Un jonc rigide en acier inoxydable, finition dorée, à trois rangs. Une pierre vert tendre cerclée de nacre, et deux lignes de strass qui s'entrelacent. Un bijou lumineux et apaisant.",
+      "matiere": "Acier inoxydable",
+      "images": [
+        "/assets/img/produit-09-a.jpg"
+      ],
+      "nouveau": false,
+      "stock": 18
+    }
+  ]
+}

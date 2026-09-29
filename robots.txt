@@ -1,0 +1,6 @@
+User-agent: *
+Allow: /
+Disallow: /panier.html
+Disallow: /*?vue=wishlist
+
+Sitemap: https://www.atelier-kymia.fr/sitemap.xml

@@ -1,0 +1,252 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <meta name="theme-color" content="#F7F2EA" />
+  <title>Politique de confidentialité — Atelier Kymia</title>
+  <meta name="description" content="Politique de confidentialité de l'Atelier Kymia : données collectées, finalités, base légale, durées de conservation et droits RGPD." />
+  <meta name="robots" content="noindex, follow" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
+  <link rel="preconnect" href="https://fonts.googleapis.com" />
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" />
+  <link rel="stylesheet"
+    href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap"
+    media="print" onload="this.media='all'" />
+  <noscript>
+    <link rel="stylesheet" href="https://fonts.googleapis.com/css2?family=Cormorant+Garamond:wght@300;400;500&family=Jost:wght@300;400;500&display=swap" />
+  </noscript>
+  <style>
+    :root{--ivoire:#F7F2EA;--encre:#2B2B2B;--encre-douce:#4A4A4A;--bordure:#D9CFBF;--or:#C9A45C;--header-h:72px;--font-titre:"Cormorant Garamond",Georgia,serif;--font-texte:"Jost",system-ui,sans-serif}
+    *{box-sizing:border-box}body{margin:0;background:var(--ivoire);color:var(--encre);font-family:var(--font-texte)}
+    img,svg{display:block;max-width:100%}button{font:inherit;background:none;border:0;cursor:pointer}a{color:inherit;text-decoration:none}
+    .annonce{background:var(--encre);color:var(--ivoire);text-align:center;padding-block:.55rem}
+    .annonce p{font-size:12px;letter-spacing:.18em;text-transform:uppercase;margin:0}
+    .header{position:sticky;top:0;z-index:100;background:var(--ivoire)}
+    .header__inner{display:grid;grid-template-columns:1fr auto 1fr;align-items:center;gap:1rem;min-height:var(--header-h)}
+    .container{width:100%;max-width:1280px;margin-inline:auto;padding-inline:clamp(1rem,5vw,3rem)}
+    .header__logo-titre{font-family:var(--font-titre);letter-spacing:.28em;text-transform:uppercase}
+    h1,h2{font-family:var(--font-titre);font-weight:400;text-transform:uppercase;letter-spacing:.06em;line-height:1.12}
+    .skip-link{position:absolute;top:-100%;left:1rem;background:var(--encre);color:var(--ivoire);padding:.75rem 1.25rem;z-index:999}
+    .skip-link:focus{top:1rem}
+  </style>
+  <link rel="stylesheet" href="/css/style.css" />
+</head>
+<body>
+  <a class="skip-link" href="#contenu">Aller au contenu</a>
+
+  <div class="annonce" role="region" aria-label="Information de livraison">
+    <p>Livraison offerte &middot; Un bijou pour porter sa paix</p>
+  </div>
+
+  <header class="header" id="header" data-header>
+    <div class="header__inner container">
+      <button type="button" class="header__burger" id="ouvrir-menu"
+        aria-label="Ouvrir le menu" aria-expanded="false" aria-controls="panneau-mobile">
+        <svg class="icone" width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false">
+          <line x1="3" y1="7" x2="21" y2="7" />
+          <line x1="3" y1="12" x2="21" y2="12" />
+          <line x1="3" y1="17" x2="21" y2="17" />
+        </svg>
+      </button>
+      <nav class="header__nav header__nav--gauche" aria-label="Navigation principale">
+        <ul class="nav-principal" role="list">
+          <li class="nav-principal__item"><a class="nav-principal__lien" href="/collection.html">Collections</a></li>
+          <li class="nav-principal__item"><a class="nav-principal__lien" href="/collection.html?temps=cadeaux">Cadeaux</a></li>
+          <li class="nav-principal__item"><a class="nav-principal__lien" href="/notre-histoire.html">Notre histoire</a></li>
+        </ul>
+      </nav>
+      <a class="header__logo" href="/index.html" aria-label="Atelier Kymia, accueil">
+        <span class="header__logo-titre">Atelier Kymia</span>
+        <span class="header__logo-sous">la paix, à porter</span>
+      </a>
+      <div class="header__actions">
+        <a class="header__action" href="/panier.html?vue=wishlist" aria-label="Voir ma liste de souhaits">
+          <svg class="icone" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false">
+            <path d="M12 20.5 4.5 13a4.6 4.6 0 0 1 0-6.5 4.6 4.6 0 0 1 6.5 0l1 1 1-1a4.6 4.6 0 0 1 6.5 0 4.6 4.6 0 0 1 0 6.5Z" />
+          </svg>
+        </a>
+        <a class="header__action header__action--panier" href="/panier.html" aria-label="Voir mon panier">
+          <svg class="icone" width="20" height="20" viewBox="0 0 24 24" fill="none"
+            stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false">
+            <path d="M6 8h12l-1 12H7Z" />
+            <path d="M9 8V6a3 3 0 0 1 6 0v2" />
+          </svg>
+          <span class="pastille" data-pastille-panier hidden aria-hidden="true">0</span>
+          <span class="sr-only" data-libelle-panier>0 article dans le panier</span>
+        </a>
+      </div>
+    </div>
+  </header>
+
+  <div class="panneau-mobile" id="panneau-mobile" data-panneau-mobile
+    role="dialog" aria-modal="true" aria-label="Menu" hidden>
+    <div class="panneau-mobile__entete">
+      <span class="panneau-mobile__titre">Atelier Kymia</span>
+      <button type="button" class="panneau-mobile__fermer" id="fermer-menu" aria-label="Fermer le menu">
+        <svg class="icone" width="22" height="22" viewBox="0 0 24 24" fill="none"
+          stroke="currentColor" stroke-width="1.4" aria-hidden="true" focusable="false">
+          <line x1="5" y1="5" x2="19" y2="19" />
+          <line x1="19" y1="5" x2="5" y2="19" />
+        </svg>
+      </button>
+    </div>
+    <nav class="panneau-mobile__nav" aria-label="Navigation mobile">
+      <ul class="panneau-mobile__liste" role="list">
+        <li><a class="panneau-mobile__lien" href="/collection.html">Collections</a></li>
+        <li><a class="panneau-mobile__lien" href="/collection.html?temps=cadeaux">Cadeaux</a></li>
+        <li><a class="panneau-mobile__lien" href="/notre-histoire.html">Notre histoire</a></li>
+      </ul>
+    </nav>
+  </div>
+
+  <div class="voile" data-voile hidden></div>
+
+  <main id="contenu" tabindex="-1">
+    <section class="section section--serre">
+      <div class="container page-legale">
+        <div class="entete-section">
+          <p class="surtitre">Vie privée</p>
+          <h1>Politique de confidentialité</h1>
+          <p class="page-legale__maj">Dernière mise à jour : <span data-annee>2026</span></p>
+        </div>
+
+        <div class="a-completer">
+          À COMPLÉTER / FAIRE VALIDER : modèle RGPD. Adapte-le à tes outils réels
+          (hébergeur, service e-mailing, paiement, analyse d'audience) et à ton
+          DPO / référent.
+        </div>
+
+        <h2 id="responsable">1. Responsable du traitement</h2>
+        <p>
+          Le responsable du traitement est <strong>[RAISON SOCIALE]</strong>,
+          <strong>[ADRESSE]</strong>. Contact : <strong>[ADRESSE E-MAIL]</strong>.
+        </p>
+
+        <h2 id="donnees">2. Données collectées</h2>
+        <ul>
+          <li>Données de commande : nom, prénom, adresse postale, e-mail, téléphone.</li>
+          <li>Données de paiement : traitées par notre prestataire, non conservées par nous.</li>
+          <li>Données de navigation : cookies et mesures d'audience (avec consentement).</li>
+          <li>Newsletter : adresse e-mail et consentement.</li>
+        </ul>
+
+        <h2 id="finalites">3. Finalités et base légale</h2>
+        <ul>
+          <li>Gestion des commandes et livraisons — exécution du contrat.</li>
+          <li>Service client — intérêt légitime / contrat.</li>
+          <li>Newsletter — consentement (retirable à tout moment).</li>
+          <li>Mesure d'audience — consentement.</li>
+          <li>Obligations comptables et légales — obligation légale.</li>
+        </ul>
+
+        <h2 id="duree">4. Durées de conservation</h2>
+        <ul>
+          <li>Données de commande : <strong>[3]</strong> ans après le dernier achat (hors obligations comptables).</li>
+          <li>Newsletter : jusqu'au retrait du consentement + 3 ans.</li>
+          <li>Cookies de mesure : <strong>[13]</strong> mois maximum.</li>
+        </ul>
+
+        <h2 id="destinataires">5. Destinataires</h2>
+        <p>
+          Les données peuvent être transmises à nos sous-traitants : hébergeur,
+          transporteur, prestataire de paiement, service d'e-mailing. Aucune donnée n'est
+          vendue.
+        </p>
+
+        <h2 id="droits">6. Tes droits</h2>
+        <p>
+          Tu disposes d'un droit d'accès, de rectification, d'effacement, de limitation,
+          d'opposition et de portabilité. Pour les exercer, écris à
+          <strong>[ADRESSE E-MAIL]</strong>. Tu peux aussi saisir la CNIL
+          (<a class="lien" href="https://www.cnil.fr" rel="noopener" target="_blank">cnil.fr<span class="sr-only"> (nouvel onglet)</span></a>).
+        </p>
+
+        <h2 id="cookies">7. Cookies</h2>
+        <p>
+          Voir notre <a class="lien" href="/cookies.html">politique cookies</a>.
+        </p>
+
+        <h2 id="transferts">8. Transferts hors UE</h2>
+        <p>
+          <strong>[À COMPLÉTER le cas échéant : préciser les transferts et garanties]</strong>.
+        </p>
+      </div>
+    </section>
+  </main>
+
+  <footer class="footer" aria-label="Pied de page">
+    <div class="container footer__haut">
+      <div class="footer__marque">
+        <a class="footer__logo" href="/index.html" aria-label="Atelier Kymia, accueil">
+          <span class="footer__logo-titre">Atelier Kymia</span>
+          <span class="footer__logo-sous">la paix, à porter</span>
+        </a>
+        <p class="footer__slogan">Un bijou pour porter sa paix.</p>
+      </div>
+      <nav class="footer__colonne" aria-label="Boutique">
+        <h2 class="footer__titre">Boutique</h2>
+        <ul class="footer__liste" role="list">
+          <li><a href="/collection.html?c=douceurs">Les Douceurs</a></li>
+          <li><a href="/collection.html?c=eclats">Les Éclats</a></li>
+          <li><a href="/collection.html?c=couleurs">Les Couleurs</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__colonne" aria-label="Infos pratiques">
+        <h2 class="footer__titre">Infos</h2>
+        <ul class="footer__liste" role="list">
+          <li><a href="/livraison.html">Livraison</a></li>
+          <li><a href="/retours.html">Retours et échanges</a></li>
+          <li><a href="/contact.html">Contact</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__colonne" aria-label="La marque">
+        <h2 class="footer__titre">La marque</h2>
+        <ul class="footer__liste" role="list">
+          <li><a href="/notre-histoire.html">Notre histoire</a></li>
+          <li><a href="/mentions-legales.html">Mentions légales</a></li>
+        </ul>
+      </nav>
+      <nav class="footer__colonne" aria-label="Réseaux sociaux">
+        <h2 class="footer__titre">Réseaux</h2>
+        <ul class="footer__liste" role="list">
+          <li><a href="https://www.tiktok.com/" rel="noopener" target="_blank">TikTok<span class="sr-only"> (nouvel onglet)</span></a></li>
+          <li><a href="https://www.instagram.com/" rel="noopener" target="_blank">Instagram<span class="sr-only"> (nouvel onglet)</span></a></li>
+        </ul>
+      </nav>
+    </div>
+    <div class="footer__bas">
+      <div class="container footer__bas-inner">
+        <p class="footer__copie">&copy; <span data-annee></span> Atelier Kymia. Tous droits réservés.</p>
+        <ul class="footer__legal" role="list">
+          <li><a href="/mentions-legales.html">Mentions légales</a></li>
+          <li><a href="/cgv.html">CGV</a></li>
+          <li><a href="/confidentialite.html">Politique de confidentialité</a></li>
+          <li><a href="/cookies.html">Cookies</a></li>
+        </ul>
+      </div>
+    </div>
+  </footer>
+
+  <div class="banniere-cookies" data-banniere-cookies role="region"
+    aria-label="Consentement aux cookies" hidden>
+    <p class="banniere-cookies__titre">Cookies</p>
+    <p class="banniere-cookies__texte">
+      On utilise des cookies pour faire fonctionner le panier et, avec ton accord,
+      pour mesurer l'audience. Aucun traceur n'est déposé avant ton choix. En savoir
+      plus : <a href="/cookies.html">notre politique cookies</a>.
+    </p>
+    <div class="banniere-cookies__actions">
+      <button type="button" class="btn" data-cookies-accepter>Accepter</button>
+      <button type="button" class="btn btn--ghost" data-cookies-refuser>Refuser</button>
+    </div>
+  </div>
+
+  <script src="/js/main.js" defer></script>
+  <script src="/js/cookies.js" defer></script>
+</body>
+</html>
