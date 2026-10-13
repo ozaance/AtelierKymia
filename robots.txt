@@ -3,4 +3,4 @@ Allow: /
 Disallow: /panier.html
 Disallow: /*?vue=wishlist
 
-Sitemap: https://www.atelier-kymia.fr/sitemap.xml
+Sitemap: https://www.atelier-kymia.com/sitemap.xml

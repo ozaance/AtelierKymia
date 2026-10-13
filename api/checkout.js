@@ -136,6 +136,7 @@ module.exports = async function handler(req, res) {
     amount: { currency: "EUR", value: panier.total.toFixed(2) },
     description: `Atelier Kymia — ${panier.resume}`.slice(0, 255),
     redirectUrl: `${origine}/merci.html`,
+    webhookUrl: `${origine}/api/webhook`,
     cancelUrl: `${origine}/panier.html`,
     locale: "fr_FR",
     billingAddress: adresse,

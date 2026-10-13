@@ -6,7 +6,7 @@
   <meta name="theme-color" content="#F7F2EA" />
   <title>Contact — Atelier Kymia</title>
   <meta name="description" content="Contacte l'Atelier Kymia : questions sur une commande, un retour ou un bijou. Réponse sous 48 h ouvrées." />
-  <link rel="canonical" href="https://www.atelier-kymia.fr/contact.html" />
+  <link rel="canonical" href="https://www.atelier-kymia.com/contact.html" />
   <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg" />
   <meta property="og:type" content="website" />
   <meta property="og:site_name" content="Atelier Kymia" />
@@ -128,12 +128,6 @@
           </p>
         </div>
 
-        <div class="a-completer">
-          À COMPLÉTER : branche ce formulaire sur ton outil réel (Formspree, service
-          d'e-mailing, backend). Aujourd'hui, il valide les champs côté navigateur
-          et affiche un message de confirmation sans envoyer.
-        </div>
-
         <form class="newsletter__form" data-contact novalidate>
           <p>
             <label for="contact-nom">Ton nom</label><br />
@@ -149,6 +143,9 @@
             <label for="contact-message">Ton message</label><br />
             <textarea class="newsletter__champ" id="contact-message" name="message"
               rows="6" required style="width:100%;margin-top:.4rem"></textarea>
+          </p>
+          <p aria-hidden="true" style="position:absolute;left:-9999px">
+            <label>Ne pas remplir <input name="site" type="text" tabindex="-1" autocomplete="off" /></label>
           </p>
           <p style="margin-top:1rem">
             <button type="submit" class="btn">Envoyer</button>

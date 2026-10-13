@@ -1,61 +1,57 @@
 <?xml version="1.0" encoding="UTF-8"?>
-<!--
-  Sitemap de l'Atelier Kymia.
-  TODO : remplacer https://www.atelier-kymia.fr par le domaine réel une fois en ligne.
--->
 <urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
   <url>
-    <loc>https://www.atelier-kymia.fr/index.html</loc>
+    <loc>https://www.atelier-kymia.com/index.html</loc>
     <changefreq>weekly</changefreq>
     <priority>1.0</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/collection.html</loc>
+    <loc>https://www.atelier-kymia.com/collection.html</loc>
     <changefreq>weekly</changefreq>
     <priority>0.9</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/collection.html?c=douceurs</loc>
+    <loc>https://www.atelier-kymia.com/collection.html?c=douceurs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/collection.html?c=eclats</loc>
+    <loc>https://www.atelier-kymia.com/collection.html?c=eclats</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/collection.html?c=couleurs</loc>
+    <loc>https://www.atelier-kymia.com/collection.html?c=couleurs</loc>
     <changefreq>weekly</changefreq>
     <priority>0.8</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/livraison.html</loc>
+    <loc>https://www.atelier-kymia.com/livraison.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/retours.html</loc>
+    <loc>https://www.atelier-kymia.com/retours.html</loc>
     <changefreq>monthly</changefreq>
     <priority>0.5</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/mentions-legales.html</loc>
+    <loc>https://www.atelier-kymia.com/mentions-legales.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/cgv.html</loc>
+    <loc>https://www.atelier-kymia.com/cgv.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/confidentialite.html</loc>
+    <loc>https://www.atelier-kymia.com/confidentialite.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>
   <url>
-    <loc>https://www.atelier-kymia.fr/cookies.html</loc>
+    <loc>https://www.atelier-kymia.com/cookies.html</loc>
     <changefreq>yearly</changefreq>
     <priority>0.3</priority>
   </url>

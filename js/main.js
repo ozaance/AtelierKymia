@@ -573,39 +573,52 @@ function initNewsletter() {
 }
 
 /* --------------------------------------------------------------------------
-   Formulaires simples (contact, suivi) — maquette sans envoi
+   Formulaire de contact
    -------------------------------------------------------------------------- */
 
 /**
- * Affiche un message de confirmation. TODO : brancher un vrai envoi (API,
- * Formspree…) pour l'envoi réel des messages.
- * @param {HTMLFormElement} form
- * @param {string} message
+ * Envoie le formulaire de contact à /api/contact (e-mail reçu par l'atelier).
+ * Le message de succès n'apparaît que si l'envoi a réellement abouti.
  */
-function initFormulaireMaquette(form, message) {
+function initFormulaireContact() {
+  const form = qs("[data-contact]");
   if (!form) return;
-  const retour = form.querySelector("[data-contact-message], [data-suivi-message]");
-  form.addEventListener("submit", (e) => {
+  const retour = qs("[data-contact-message]", form);
+  const bouton = qs('button[type="submit"]', form);
+  const afficher = (texte) => { if (retour) retour.textContent = texte; };
+
+  form.addEventListener("submit", async (e) => {
     e.preventDefault();
     if (!form.checkValidity()) {
-      if (retour) retour.textContent = "Merci de compléter les champs requis.";
+      afficher("Merci de compléter les champs requis.");
       return;
     }
-    if (retour) retour.textContent = message;
-    form.reset();
+
+    if (bouton) bouton.disabled = true;
+    afficher("Envoi en cours…");
+    try {
+      const reponse = await fetch("/api/contact", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify(Object.fromEntries(new FormData(form))),
+      });
+      const data = await reponse.json().catch(() => ({}));
+      if (reponse.ok) {
+        afficher("Merci ! Ton message a bien été envoyé, nous te répondons très vite.");
+        form.reset();
+      } else {
+        afficher(data.erreur || "L'envoi a échoué. Écris-nous directement à proxicall.paris@gmail.com.");
+      }
+    } catch (_) {
+      afficher("L'envoi a échoué. Écris-nous directement à proxicall.paris@gmail.com.");
+    }
+    if (bouton) bouton.disabled = false;
   });
 }
 
-/** Initialise les formulaires de contact et de suivi. */
+/** Initialise les formulaires. */
 function initFormulaires() {
-  initFormulaireMaquette(
-    qs("[data-contact]"),
-    "Merci ! Ton message a bien été pris en compte (démo)."
-  );
-  initFormulaireMaquette(
-    qs("[data-suivi]"),
-    "Recherche du colis en cours… (démo, à brancher sur ton transporteur)."
-  );
+  initFormulaireContact();
 }
 
 /* --------------------------------------------------------------------------
