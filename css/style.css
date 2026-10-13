@@ -2213,6 +2213,49 @@ body.sans-scroll {
   color: var(--encre-douce);
 }
 
+/* Coordonnées de livraison (panier.html) */
+.livraison {
+  display: grid;
+  gap: var(--space-sm);
+  margin-top: var(--space-md);
+  padding-top: var(--space-md);
+  border-top: 1px solid var(--bordure);
+}
+
+.livraison__titre {
+  font-size: var(--fs-base);
+}
+
+.livraison__duo {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: var(--space-sm);
+}
+
+.champ {
+  display: grid;
+  gap: 0.3rem;
+  font-size: var(--fs-sm);
+  color: var(--encre-douce);
+}
+
+.champ input,
+.champ select {
+  width: 100%;
+  min-width: 0;
+  padding: 0.65rem 0.75rem;
+  border: 1px solid var(--bordure);
+  background: transparent;
+  color: var(--encre);
+  font-size: var(--fs-base);
+}
+
+.champ input:focus-visible,
+.champ select:focus-visible {
+  outline: 2px solid var(--or);
+  outline-offset: 1px;
+}
+
 .recap__commander {
   margin-top: var(--space-md);
 }

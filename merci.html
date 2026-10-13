@@ -113,11 +113,10 @@
     <section class="section section--serre">
       <div class="container page-legale">
         <div class="entete-section">
-          <p class="surtitre">Commande confirmée</p>
-          <h1>Merci pour ta commande</h1>
-          <p class="entete-section__intro">
-            Ton paiement est bien reçu. Tu vas recevoir un e-mail de confirmation
-            avec le récapitulatif de ta commande.
+          <p class="surtitre" data-merci-surtitre>Commande</p>
+          <h1 data-merci-titre>Merci pour ta commande</h1>
+          <p class="entete-section__intro" data-merci-texte role="status" aria-live="polite">
+            Vérification de ton paiement…
           </p>
         </div>
 
@@ -203,10 +202,54 @@
   </div>
 
   <script>
-    /* Paiement réussi (retour Stripe avec session_id) : on vide le panier. */
-    if (new URLSearchParams(location.search).has("session_id")) {
-      try { localStorage.removeItem("kymia.panier"); } catch (_) {}
-    }
+    /* Retour de Mollie : on vérifie le statut du paiement avant de confirmer
+       la commande, et on ne vide le panier que s'il est réellement payé. */
+    (async () => {
+      const surtitre = document.querySelector("[data-merci-surtitre]");
+      const titre = document.querySelector("[data-merci-titre]");
+      const texte = document.querySelector("[data-merci-texte]");
+      const afficher = (s, t, p) => {
+        surtitre.textContent = s;
+        titre.textContent = t;
+        texte.innerHTML = p;
+      };
+
+      let id = null;
+      try { id = JSON.parse(localStorage.getItem("kymia.paiement")); } catch (_) {}
+      if (!id) {
+        afficher("Commande", "Merci de ta visite",
+          "Aucun paiement en cours sur cet appareil. Si tu viens de commander, " +
+          "tu vas recevoir un e-mail de confirmation.");
+        return;
+      }
+
+      let statut = null;
+      try {
+        const r = await fetch("/api/statut?id=" + encodeURIComponent(id));
+        statut = (await r.json()).statut;
+      } catch (_) {}
+
+      if (statut === "paid" || statut === "authorized") {
+        try {
+          localStorage.removeItem("kymia.panier");
+          localStorage.removeItem("kymia.paiement");
+        } catch (_) {}
+        afficher("Commande confirmée", "Merci pour ta commande",
+          "Ton paiement est bien reçu. Tu vas recevoir un e-mail de confirmation " +
+          "avec le récapitulatif de ta commande.");
+      } else if (statut === "open" || statut === "pending") {
+        afficher("Paiement en attente", "Ton paiement est en cours",
+          "Ton paiement n'est pas encore validé. Recharge cette page dans quelques instants.");
+      } else if (statut) {
+        afficher("Paiement non abouti", "Ta commande n'a pas été payée",
+          'Aucun montant n\'a été débité. Ton panier est conservé : ' +
+          '<a class="lien" href="/panier.html">retourner au panier</a>.');
+      } else {
+        afficher("Commande", "Vérification impossible",
+          "Nous n'avons pas pu vérifier ton paiement. Si tu as été débité, " +
+          "écris-nous : nous retrouverons ta commande.");
+      }
+    })();
   </script>
   <script src="/js/main.js" defer></script>
   <script src="/js/cart.js" defer></script>

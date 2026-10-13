@@ -1,16 +1,21 @@
 /* ==========================================================================
    Atelier Kymia — api/checkout.js
-   Fonction serverless (Vercel) : crée une session Stripe Checkout pour tout
-   le panier, quel que soit le nombre de bijoux.
+   Fonction serverless (Vercel) : crée un paiement Mollie pour tout le panier,
+   quel que soit le nombre de bijoux.
 
-   Entrée  : POST { lignes: [{ id, quantite }, ...] }
-   Sortie  : { url } — page de paiement Stripe vers laquelle rediriger.
+   Entrée  : POST { lignes: [{ id, quantite }, ...], client: { … } }
+   Sortie  : { url, id } — page de paiement Mollie vers laquelle rediriger,
+             et identifiant du paiement (pour vérifier son statut au retour).
 
    Les prix ne viennent jamais du navigateur : on ne lit que l'id et la
-   quantité, puis on retrouve le prix Stripe dans data/products.json.
+   quantité, puis on retrouve le prix dans data/products.json.
 
-   Variable d'environnement requise : STRIPE_SECRET_KEY (sk_test_… ou rk_test_…
-   en test, sk_live_… en production).
+   Mollie ne demande pas l'adresse de livraison : elle est saisie sur
+   panier.html, vérifiée ici, puis jointe au paiement (visible dans le
+   tableau de bord Mollie).
+
+   Variable d'environnement requise : MOLLIE_API_KEY (test_… en test,
+   live_… en production).
    ========================================================================== */
 
 "use strict";
@@ -18,34 +23,15 @@
 const { produits } = require("../data/products.json");
 
 const PAYS_LIVRAISON = ["FR", "BE", "CH", "LU", "MC"];
-const MAX_LIGNES = 20; /* limite Stripe par session */
+const MAX_LIGNES = 20;
+const EMAIL = /^[^\s@]+@[^\s@]+\.[^\s@]+$/;
 
 /**
- * Encode un objet imbriqué au format attendu par l'API Stripe
- * (application/x-www-form-urlencoded, ex. line_items[0][price]=…).
- * @param {Object} objet
- * @param {string} [prefixe]
- * @param {URLSearchParams} [params]
- * @returns {URLSearchParams}
- */
-function encoderStripe(objet, prefixe = "", params = new URLSearchParams()) {
-  for (const [cle, valeur] of Object.entries(objet)) {
-    const nom = prefixe ? `${prefixe}[${cle}]` : cle;
-    if (valeur !== null && typeof valeur === "object") {
-      encoderStripe(valeur, nom, params);
-    } else if (valeur !== undefined) {
-      params.append(nom, String(valeur));
-    }
-  }
-  return params;
-}
-
-/**
- * Vérifie le panier reçu et le convertit en line_items Stripe.
+ * Vérifie le panier reçu et calcule le total à partir des prix du catalogue.
  * @param {*} lignes
- * @returns {{ items?: Array<Object>, erreur?: string }}
+ * @returns {{ total?: number, resume?: string, erreur?: string }}
  */
-function construireLignes(lignes) {
+function calculerPanier(lignes) {
   if (!Array.isArray(lignes) || lignes.length === 0) {
     return { erreur: "Le panier est vide." };
   }
@@ -53,12 +39,13 @@ function construireLignes(lignes) {
     return { erreur: `Un panier ne peut pas contenir plus de ${MAX_LIGNES} bijoux différents.` };
   }
 
-  const items = [];
+  let totalCentimes = 0;
+  const resume = [];
   for (const ligne of lignes) {
     const produit = produits.find((p) => p.id === Number(ligne?.id));
     const quantite = Number(ligne?.quantite);
 
-    if (!produit || !produit.stripe_prix) {
+    if (!produit || !(produit.prix > 0)) {
       return { erreur: "Un bijou de ton panier n'est plus disponible." };
     }
     if (!Number.isInteger(quantite) || quantite < 1) {
@@ -68,13 +55,40 @@ function construireLignes(lignes) {
       return { erreur: `Il ne reste que ${produit.stock} ${produit.nom} en stock.` };
     }
 
-    items.push({
-      price: produit.stripe_prix,
-      quantity: quantite,
-      adjustable_quantity: { enabled: true, minimum: 0, maximum: produit.stock },
-    });
+    totalCentimes += Math.round(produit.prix * 100) * quantite;
+    resume.push(`${quantite} x ${produit.nom}`);
   }
-  return { items };
+  return { total: totalCentimes / 100, resume: resume.join(", ") };
+}
+
+/**
+ * Vérifie les coordonnées de livraison saisies sur panier.html.
+ * @param {*} client
+ * @returns {{ client?: Object, erreur?: string }}
+ */
+function verifierClient(client) {
+  const nettoyer = (v, max) => String(v ?? "").trim().slice(0, max);
+  const c = {
+    prenom: nettoyer(client?.prenom, 60),
+    nom: nettoyer(client?.nom, 60),
+    email: nettoyer(client?.email, 120),
+    telephone: nettoyer(client?.telephone, 30),
+    adresse: nettoyer(client?.adresse, 120),
+    codePostal: nettoyer(client?.codePostal, 12),
+    ville: nettoyer(client?.ville, 60),
+    pays: nettoyer(client?.pays, 2).toUpperCase(),
+  };
+
+  if (!c.prenom || !c.nom || !c.adresse || !c.codePostal || !c.ville || !c.telephone) {
+    return { erreur: "Merci de remplir toutes les informations de livraison." };
+  }
+  if (!EMAIL.test(c.email)) {
+    return { erreur: "L'adresse e-mail n'est pas valide." };
+  }
+  if (!PAYS_LIVRAISON.includes(c.pays)) {
+    return { erreur: "Nous ne livrons pas encore dans ce pays." };
+  }
+  return { client: c };
 }
 
 module.exports = async function handler(req, res) {
@@ -83,52 +97,78 @@ module.exports = async function handler(req, res) {
     return res.status(405).json({ erreur: "Méthode non autorisée." });
   }
 
-  const cle = process.env.STRIPE_SECRET_KEY;
+  const cle = process.env.MOLLIE_API_KEY;
   if (!cle) {
     return res.status(500).json({ erreur: "Paiement non configuré." });
   }
 
-  const corps = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
-  const { items, erreur } = construireLignes(corps.lignes);
-  if (erreur) {
-    return res.status(400).json({ erreur });
+  let corps;
+  try {
+    corps = typeof req.body === "string" ? JSON.parse(req.body || "{}") : req.body || {};
+  } catch (_) {
+    return res.status(400).json({ erreur: "Requête invalide." });
   }
 
-  // Adresse du site (Vercel, domaine perso ou local) pour les retours Stripe.
+  const panier = calculerPanier(corps.lignes);
+  if (panier.erreur) {
+    return res.status(400).json({ erreur: panier.erreur });
+  }
+  const verif = verifierClient(corps.client);
+  if (verif.erreur) {
+    return res.status(400).json({ erreur: verif.erreur });
+  }
+  const c = verif.client;
+
+  // Adresse du site (Vercel, domaine perso ou local) pour les retours Mollie.
   const origine = `${req.headers["x-forwarded-proto"] || "https"}://${req.headers.host}`;
 
-  const session = {
-    mode: "payment",
-    line_items: items,
-    success_url: `${origine}/merci.html?session_id={CHECKOUT_SESSION_ID}`,
-    cancel_url: `${origine}/panier.html`,
-    locale: "fr",
-    allow_promotion_codes: true,
-    phone_number_collection: { enabled: true },
-    shipping_address_collection: { allowed_countries: PAYS_LIVRAISON },
+  const adresse = {
+    givenName: c.prenom,
+    familyName: c.nom,
+    email: c.email,
+    streetAndNumber: c.adresse,
+    postalCode: c.codePostal,
+    city: c.ville,
+    country: c.pays,
+  };
+
+  const paiement = {
+    amount: { currency: "EUR", value: panier.total.toFixed(2) },
+    description: `Atelier Kymia — ${panier.resume}`.slice(0, 255),
+    redirectUrl: `${origine}/merci.html`,
+    cancelUrl: `${origine}/panier.html`,
+    locale: "fr_FR",
+    billingAddress: adresse,
+    shippingAddress: adresse,
+    // Les métadonnées s'affichent dans le tableau de bord Mollie (1 Ko max).
     metadata: {
       panier: corps.lignes.map((l) => `${Number(l.id)}x${Number(l.quantite)}`).join(","),
+      client: `${c.prenom} ${c.nom}`,
+      email: c.email,
+      tel: c.telephone,
+      livraison: `${c.adresse}, ${c.codePostal} ${c.ville}, ${c.pays}`,
     },
   };
 
   try {
-    const reponse = await fetch("https://api.stripe.com/v1/checkout/sessions", {
+    const reponse = await fetch("https://api.mollie.com/v2/payments", {
       method: "POST",
       headers: {
         Authorization: `Bearer ${cle}`,
-        "Content-Type": "application/x-www-form-urlencoded",
+        "Content-Type": "application/json",
       },
-      body: encoderStripe(session),
+      body: JSON.stringify(paiement),
     });
     const data = await reponse.json();
+    const url = data?._links?.checkout?.href;
 
-    if (!reponse.ok) {
-      console.error("Stripe :", data.error?.message);
+    if (!reponse.ok || !url) {
+      console.error("Mollie :", data?.detail || data?.title);
       return res.status(502).json({ erreur: "Le paiement est momentanément indisponible." });
     }
-    return res.status(200).json({ url: data.url });
+    return res.status(200).json({ url, id: data.id });
   } catch (e) {
-    console.error("Stripe injoignable :", e);
+    console.error("Mollie injoignable :", e);
     return res.status(502).json({ erreur: "Le paiement est momentanément indisponible." });
   }
 };

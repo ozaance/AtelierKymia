@@ -254,6 +254,45 @@
           <p class="recap__ligne"><span>Sous-total</span><span data-recap-soustotal>0,00 €</span></p>
           <p class="recap__ligne"><span>Livraison</span><span data-recap-livraison>Offerte</span></p>
           <p class="recap__ligne recap__ligne--total"><span>Total</span><span data-recap-total>0,00 €</span></p>
+
+          <form class="livraison" data-livraison aria-labelledby="titre-livraison">
+            <h3 class="livraison__titre" id="titre-livraison">Livraison</h3>
+            <div class="livraison__duo">
+              <label class="champ">Prénom
+                <input name="prenom" type="text" autocomplete="given-name" maxlength="60" required />
+              </label>
+              <label class="champ">Nom
+                <input name="nom" type="text" autocomplete="family-name" maxlength="60" required />
+              </label>
+            </div>
+            <label class="champ">E-mail
+              <input name="email" type="email" autocomplete="email" maxlength="120" required />
+            </label>
+            <label class="champ">Téléphone
+              <input name="telephone" type="tel" autocomplete="tel" maxlength="30" required />
+            </label>
+            <label class="champ">Adresse
+              <input name="adresse" type="text" autocomplete="address-line1" maxlength="120" required />
+            </label>
+            <div class="livraison__duo">
+              <label class="champ">Code postal
+                <input name="codePostal" type="text" autocomplete="postal-code" maxlength="12" required />
+              </label>
+              <label class="champ">Ville
+                <input name="ville" type="text" autocomplete="address-level2" maxlength="60" required />
+              </label>
+            </div>
+            <label class="champ">Pays
+              <select name="pays" autocomplete="country" required>
+                <option value="FR" selected>France</option>
+                <option value="BE">Belgique</option>
+                <option value="CH">Suisse</option>
+                <option value="LU">Luxembourg</option>
+                <option value="MC">Monaco</option>
+              </select>
+            </label>
+          </form>
+
           <p class="recap__note" data-recap-note aria-live="polite"></p>
           <button type="button" class="btn btn--bloc recap__commander" data-passer-commande disabled>
             Passer commande

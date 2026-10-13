@@ -15,6 +15,7 @@
    -------------------------------------------------------------------------- */
 const CLE_PANIER = "kymia.panier";      /* [{ id, slug, nom, prix, image, quantite }] */
 const CLE_WISHLIST = "kymia.wishlist";  /* [id, id, ...] */
+const CLE_PAIEMENT = "kymia.paiement";  /* id du dernier paiement Mollie (tr_…) */
 const SEUIL_LIVRAISON_OFFERTE = 0;      /* en euros — livraison offerte sans minimum */
 const FRAIS_LIVRAISON = 0;              /* en euros, sous le seuil */
 
@@ -523,14 +524,19 @@ function initPagePanier() {
 /**
  * Lance le tunnel de commande.
  *
- * Le panier complet est envoyé à /api/checkout (fonction serverless), qui crée
- * une session Stripe Checkout et renvoie son URL. Si la fonction est
- * injoignable (site servi sans back-end), un panier d'un seul bijou bascule
- * sur son lien de paiement Stripe (`lien_paiement` de data/products.json).
+ * Le panier complet et les coordonnées de livraison sont envoyés à
+ * /api/checkout (fonction serverless), qui crée un paiement Mollie et renvoie
+ * l'URL de la page de paiement. L'identifiant du paiement est gardé pour que
+ * merci.html vérifie son statut au retour.
  */
 async function checkout() {
   const lignes = Panier.lire();
   if (lignes.length === 0) {
+    return;
+  }
+
+  const formulaire = qs("[data-livraison]");
+  if (formulaire && !formulaire.reportValidity()) {
     return;
   }
 
@@ -543,6 +549,9 @@ async function checkout() {
   };
 
   if (bouton) bouton.disabled = true;
+  if (note) note.textContent = "";
+
+  const client = formulaire ? Object.fromEntries(new FormData(formulaire)) : {};
 
   try {
     const reponse = await fetch("/api/checkout", {
@@ -550,30 +559,23 @@ async function checkout() {
       headers: { "Content-Type": "application/json" },
       body: JSON.stringify({
         lignes: lignes.map((l) => ({ id: l.id, quantite: l.quantite })),
+        client,
       }),
     });
     const data = await reponse.json().catch(() => ({}));
 
     if (reponse.ok && data.url) {
+      ecrireStockage(CLE_PAIEMENT, data.id || null);
       window.location.href = data.url;
       return;
     }
-    // Erreur métier (stock, panier invalide…) : on l'affiche telle quelle.
+    // Erreur métier (stock, adresse invalide…) : on l'affiche telle quelle.
     if (reponse.status === 400 && data.erreur) {
       afficherErreur(data.erreur);
       return;
     }
   } catch (_) {
-    /* fonction injoignable : repli ci-dessous */
-  }
-
-  if (lignes.length === 1) {
-    const produits = K.chargerProduits ? await K.chargerProduits() : [];
-    const produit = produits.find((p) => p.id === lignes[0].id);
-    if (produit?.lien_paiement) {
-      window.location.href = produit.lien_paiement;
-      return;
-    }
+    /* fonction injoignable : message générique ci-dessous */
   }
 
   afficherErreur("Le paiement est momentanément indisponible. Réessaie dans quelques instants.");
